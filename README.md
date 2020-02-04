@@ -12,6 +12,7 @@ This is small replica of Respected StackOverflow. This project is created using 
 * Upvote Question
 * Login
 * Session Expire
+* Donwnvote a question
 
 
 
