@@ -73,7 +73,7 @@ router.post(
 
 //@type  POST
 //@route    /api/questions/upvote/:_id
-// @desc    route for upvoting
+// @desc    route for upvoting/unvoting
 // @access  PRIVATE
 router.post(
   "/upvote/:_id",
@@ -84,17 +84,25 @@ router.post(
         Question.findById(req.params._id)
           .then(question => {
             if (
+              //checking if the user who upvoted is in array or not
               question.upvotes.filter(
                 upvote => upvote.user.toString() === req.user.id.toString()
               ).length > 0
             ) {
-              return res.status(400).json({ noupvote: "User already upvoted" });
+              //if he is found in array we will remove him or unvote hi
+              question.upvotes.pop({ user: req.user.id });
+              question
+                .save()
+                .then(question => res.json(question))
+                .catch(err => console.log(err));
+            } else {
+              //else if someone is not there we will allow him to upvote
+              question.upvotes.unshift({ user: req.user.id });
+              question
+                .save()
+                .then(question => res.json(question))
+                .catch(err => console.log(err));
             }
-            question.upvotes.unshift({ user: req.user.id });
-            question
-              .save()
-              .then(question => res.json(question))
-              .catch(err => console.log(err));
           })
           .catch(err => console.log(err));
       })
