@@ -30,6 +30,7 @@ What things you need to install the software and how to install them
 * passport
 * passport-jwt
 * validator
+* nodemon
 ```
 To test server or get it live
 ```
