@@ -40,7 +40,7 @@ nodemon
 Run the following command on your terminal
 
 ```
-npm install bcryptjs body-parser body-parser jsonwebtoken passport passport-jwt mongoose validator
+git clone https://github.com/aslisubhash/StackOverflow.git 
 ```
 
 
