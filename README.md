@@ -20,7 +20,7 @@ This is small replica of Respected StackOverflow. This project is created using 
 
 What things you need to install the software and how to install them
 
-```
+
 * Node.js
 * bcryptjs
 * body-parser
@@ -31,7 +31,6 @@ What things you need to install the software and how to install them
 * passport-jwt
 * validator
 * nodemon
-```
 To test server or get it live
 ```
 nodemon
