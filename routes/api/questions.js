@@ -25,12 +25,12 @@ router.get("/", (req, res) => {
 });
 
 //@type  POST
-//@route    /api/questions/
+//@route    /api/questions/newQuestion
 // @desc    route for submitting question
 // @access  PRIVATE
 
 router.post(
-  "/",
+  "/newQuestion",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const newQuestion = new Question({
@@ -46,12 +46,44 @@ router.post(
   }
 );
 
+//@type  DELETE
+//@route    /api/questions/:id
+// @desc    route for deleting question
+// @access  PRIVATE
+
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Question.find({ _id: req.params.id })
+      .remove()
+      .then(res.send({ sucess: "Delete Suceess" }))
+      .catch(err => console.log(err));
+  }
+);
+
+
+//@type - DELETE
+//@route -  /api/questions/deleteAll
+//@desc - route for deleting all question of a user
+//@access - PRIVATE
+router.delete(
+  "/deleteAll",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log(req.user.id);
+    Question.find({ user: req.user.id }).deleteMany(() => {
+      return res.json({ Deleted_all: "Succesfully deleted!" });
+    });
+  }
+);
+
 //@type  POST
 //@route    /api/questions/answers/:id
 // @desc    route for submitting answers to questions
 // @access  PRIVATE
 router.post(
-  "/answers/:id",
+  "/postAnswer/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Question.findById(req.params.id)
